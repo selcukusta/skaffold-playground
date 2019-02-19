@@ -2,15 +2,16 @@ apiVersion: skaffold/v1beta5
 kind: Config
 build:
   artifacts:
-  # image tags are relative; to specify an image repo (e.g. GCR), you
-  # must provide a "default repo" using one of the methods described 
-  # here:
-  # https://skaffold.dev/docs/concepts/#image-repository-handling
-  - image: sampleservice
-    context: /vagrant/applications/src
+    -
+      image: sampleservice
+      context: /vagrant/applications/src
+  local:
+    push: false
+    useDockerCLI: true
+    useBuildkit: false
   tagPolicy:
     gitCommit: {}
 deploy:
   kubectl:
     manifests:
-    - kubernetes-manifests/**.yaml
+      - 'kubernetes-manifests/**.yaml'
